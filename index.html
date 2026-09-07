@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#061522">
+<meta name="description" content="Diego Taxi - controle diário do táxi">
+<link rel="manifest" href="manifest.json">
+<title>Diego Taxi</title>
+<style>
+:root{--bg:#061522;--card:#0d2435;--card2:#102d41;--yellow:#ffd21a;--blue:#0877d1;--text:#f7f9fb;--muted:#9fb0bd;--green:#45e08b;--red:#ff6262}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#061522,#071b2a 60%,#04111b);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:82px}
+header{position:sticky;top:0;z-index:5;background:rgba(6,21,34,.96);backdrop-filter:blur(10px);padding:16px 18px;border-bottom:1px solid #17364b}
+.brand{display:flex;align-items:center;gap:10px}.taxi-icon{font-size:30px}.brand h1{margin:0;font-size:25px}.brand b{color:var(--yellow)}.sub{font-size:11px;color:var(--muted);margin-top:2px}
+main{padding:18px}.screen{display:none}.screen.active{display:block}
+.date{color:var(--muted);font-size:13px;margin:2px 0 14px}.hero{background:linear-gradient(135deg,#0d3551,#071c2b);border:1px solid #17415d;border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 10px 25px #0005}
+.hero-title{font-size:26px;font-weight:800}.hero p{margin:6px 0 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:var(--card);border:1px solid #173b51;border-radius:17px;padding:15px}.label{font-size:12px;color:var(--muted)}.value{font-size:21px;font-weight:800;margin-top:7px}.yellow{color:var(--yellow)}.green{color:var(--green)}.red{color:var(--red)}
+.big{margin-top:10px;background:#071e2d;border:1px solid #176348;border-radius:18px;padding:17px}.big .value{font-size:29px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{border:0;border-radius:16px;padding:16px 12px;font-weight:800;font-size:15px;background:var(--card2);color:white;border:1px solid #1c4962}.btn.primary{background:var(--yellow);color:#111;border-color:var(--yellow)}.btn.full{grid-column:1/-1}
+.section-title{font-size:21px;font-weight:800;margin:4px 0 15px}
+.form{background:var(--card);border:1px solid #173b51;border-radius:18px;padding:16px}.field{margin-bottom:13px}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.field input,.field textarea,.field select{width:100%;padding:13px;border-radius:12px;border:1px solid #31556a;background:#081a28;color:white;font-size:16px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:9px 5px;border-bottom:1px solid #1a3a4c}th{color:var(--yellow)}
+.empty{padding:28px 10px;text-align:center;color:var(--muted)}
+.bottom{position:fixed;bottom:0;left:0;right:0;margin:auto;max-width:520px;height:70px;background:#061522ee;border-top:1px solid #17364b;display:grid;grid-template-columns:repeat(4,1fr);z-index:10}.nav{border:0;background:none;color:#91a1ae;font-size:11px}.nav span{display:block;font-size:22px;margin-bottom:2px}.nav.active{color:var(--yellow);font-weight:800}
+.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#132f42;color:#fff;padding:12px 16px;border-radius:12px;display:none;z-index:20;box-shadow:0 8px 30px #0008}
+.note{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.4}
+@media(max-width:360px){main{padding:14px}.value{font-size:18px}.btn{font-size:13px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand"><div class="taxi-icon">🚕</div><div><h1>Diego <b>Taxi</b></h1><div class="sub">CONTROLE DO SEU TÁXI</div></div></div></header>
+
+<main>
+<section id="home" class="screen active">
+<div class="date" id="today"></div>
+<div class="hero"><div class="hero-title">Bom dia, Diego! 👋</div><p>Seu controle de trabalho, simples e direto.</p></div>
+<div class="grid">
+<div class="card"><div class="label">💰 ENTRADA HOJE</div><div class="value yellow" id="hEntry">R$ 0,00</div></div>
+<div class="card"><div class="label">💸 DESPESAS HOJE</div><div class="value red" id="hExpense">R$ 0,00</div></div>
+<div class="card"><div class="label">📈 LÍQUIDO HOJE</div><div class="value green" id="hNet">R$ 0,00</div></div>
+<div class="card"><div class="label">🚗 KM HOJE</div><div class="value" id="hKm">0 km</div></div>
+</div>
+<div class="big"><div class="label">FECHAMENTO DO DIA</div><div class="value green" id="hClose">R$ 0,00</div></div>
+<div class="actions">
+<button class="btn primary full" onclick="show('diario')">➕ Lançar dia</button>
+<button class="btn" onclick="show('abastecimento')">⛽ Abastecimento</button>
+<button class="btn" onclick="show('manutencao')">🔧 Manutenção</button>
+<button class="btn" onclick="show('calendario')">📅 Calendário</button>
+<button class="btn" onclick="show('resumo')">📊 Relatórios</button>
+</div>
+</section>
+
+<section id="diario" class="screen">
+<div class="section-title">🚕 Lançar dia</div>
+<div class="form">
+<div class="field"><label>Data</label><input id="dDate" type="date"></div>
+<div class="row"><div class="field"><label>KM inicial</label><input id="dStart" type="number" inputmode="decimal"></div><div class="field"><label>KM final</label><input id="dEnd" type="number" inputmode="decimal"></div></div>
+<div class="row"><div class="field"><label>Dinheiro</label><input id="dCash" type="number" step="0.01" inputmode="decimal"></div><div class="field"><label>PIX / Cartão</label><input id="dCard" type="number" step="0.01" inputmode="decimal"></div></div>
+<div class="row"><div class="field"><label>Combustível</label><input id="dFuel" type="number" step="0.01" inputmode="decimal"></div><div class="field"><label>Outras despesas</label><input id="dOther" type="number" step="0.01" inputmode="decimal"></div></div>
+<div class="field"><label>Observação</label><textarea id="dNote" rows="3" placeholder="Ex.: lavagem, pedágio, almoço..."></textarea></div>
+<button class="btn primary full" onclick="saveDay()">💾 Salvar dia</button>
+<div class="note">O sistema calcula automaticamente KM, entrada, despesas e líquido.</div>
+</div>
+</section>
+
+<section id="abastecimento" class="screen">
+<div class="section-title">⛽ Abastecimento</div><div class="form">
+<div class="row"><div class="field"><label>Data</label><input id="fDate" type="date"></div><div class="field"><label>KM</label><input id="fKm" type="number" inputmode="decimal"></div></div>
+<div class="row"><div class="field"><label>Litros</label><input id="fLiters" type="number" step="0.01" inputmode="decimal"></div><div class="field"><label>Valor (R$)</label><input id="fValue" type="number" step="0.01" inputmode="decimal"></div></div>
+<div class="field"><label>Posto</label><input id="fStation"></div>
+<button class="btn primary full" onclick="saveFuel()">💾 Salvar abastecimento</button>
+</div><div class="form" style="margin-top:12px"><table><thead><tr><th>Data</th><th>KM</th><th>Litros</th><th>Valor</th></tr></thead><tbody id="fuelRows"></tbody></table></div>
+</section>
+
+<section id="manutencao" class="screen">
+<div class="section-title">🔧 Manutenção</div><div class="form">
+<div class="row"><div class="field"><label>Data</label><input id="mDate" type="date"></div><div class="field"><label>KM</label><input id="mKm" type="number"></div></div>
+<div class="field"><label>Tipo</label><select id="mType"><option>Troca de óleo</option><option>Revisão</option><option>Freios</option><option>Pneus</option><option>Bateria</option><option>Oficina</option><option>Filtros</option><option>Outro</option></select></div>
+<div class="row"><div class="field"><label>Valor (R$)</label><input id="mValue" type="number" step="0.01"></div><div class="field"><label>Próximo KM</label><input id="mNext" type="number"></div></div>
+<div class="field"><label>Descrição</label><input id="mDesc" placeholder="Ex.: óleo + filtro"></div>
+<button class="btn primary full" onclick="saveMaintenance()">💾 Salvar manutenção</button>
+</div><div class="form" style="margin-top:12px"><table><thead><tr><th>Data</th><th>Tipo</th><th>KM</th><th>Valor</th></tr></thead><tbody id="maintRows"></tbody></table></div>
+</section>
+
+<section id="calendario" class="screen">
+<div class="section-title">📅 Calendário</div><div class="form">
+<div class="row"><div class="field"><label>Data</label><input id="cDate" type="date"></div><div class="field"><label>Horário</label><input id="cTime" type="time"></div></div>
+<div class="field"><label>Compromisso</label><input id="cTitle" placeholder="Ex.: troca de óleo"></div>
+<div class="field"><label>Observação</label><input id="cNote"></div>
+<button class="btn primary full" onclick="saveCalendar()">💾 Salvar compromisso</button>
+</div><div class="form" style="margin-top:12px"><table><thead><tr><th>Data</th><th>Hora</th><th>Compromisso</th></tr></thead><tbody id="calRows"></tbody></table></div>
+</section>
+
+<section id="resumo" class="screen">
+<div class="section-title">📊 Relatórios</div>
+<div class="grid">
+<div class="card"><div class="label">HOJE</div><div class="value" id="rToday">R$ 0,00</div></div>
+<div class="card"><div class="label">SEMANA</div><div class="value" id="rWeek">R$ 0,00</div></div>
+<div class="card"><div class="label">MÊS</div><div class="value yellow" id="rMonth">R$ 0,00</div></div>
+<div class="card"><div class="label">KM DO MÊS</div><div class="value" id="rKm">0 km</div></div>
+</div>
+<div class="form" style="margin-top:12px">
+<div class="label">RESUMO DO MÊS</div>
+<table><tbody><tr><td>Entrada</td><td id="rmEntry">R$ 0,00</td></tr><tr><td>Despesas</td><td id="rmExp">R$ 0,00</td></tr><tr><td><b>Líquido</b></td><td id="rmNet"><b>R$ 0,00</b></td></tr><tr><td>KM</td><td id="rmKm">0 km</td></tr><tr><td>Líquido/KM</td><td id="rmPerKm">R$ 0,00</td></tr></tbody></table>
+</div>
+</section>
+</main>
+<nav class="bottom">
+<button class="nav active" data-screen="home" onclick="show('home')"><span>⌂</span>Início</button>
+<button class="nav" data-screen="diario" onclick="show('diario')"><span>▣</span>Diário</button>
+<button class="nav" data-screen="resumo" onclick="show('resumo')"><span>▥</span>Resumo</button>
+<button class="nav" data-screen="manutencao" onclick="show('manutencao')"><span>•••</span>Mais</button>
+</nav>
+<div class="toast" id="toast"></div>
+</div>
+<script>
+const KEY='diegoTaxiV1';
+let data=JSON.parse(localStorage.getItem(KEY)||'{"days":[],"fuel":[],"maint":[],"cal":[]}');
+const brl=v=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(v)||0);
+const num=id=>Number(document.getElementById(id).value)||0;
+const isoToday=()=>new Date().toISOString().slice(0,10);
+document.getElementById('today').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+['dDate','fDate','mDate','cDate'].forEach(id=>document.getElementById(id).value=isoToday());
+
+function save(){localStorage.setItem(KEY,JSON.stringify(data)); refresh();}
+function toast(t){const x=document.getElementById('toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',1800)}
+function show(id){
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.screen===id));
+ refresh();window.scrollTo(0,0);
+}
+function saveDay(){
+ const start=num('dStart'),end=num('dEnd'),cash=num('dCash'),card=num('dCard'),fuel=num('dFuel'),other=num('dOther');
+ data.days.push({date:dDate.value,start,end,km:Math.max(0,end-start),entry:cash+card,expense:fuel+other,note:dNote.value});
+ save();toast('Dia salvo com sucesso 🚕');show('home');
+}
+function saveFuel(){data.fuel.push({date:fDate.value,km:num('fKm'),liters:num('fLiters'),value:num('fValue'),station:fStation.value});save();toast('Abastecimento salvo ⛽');}
+function saveMaintenance(){data.maint.push({date:mDate.value,km:num('mKm'),type:mType.value,value:num('mValue'),next:num('mNext'),desc:mDesc.value});save();toast('Manutenção salva 🔧');}
+function saveCalendar(){data.cal.push({date:cDate.value,time:cTime.value,title:cTitle.value,note:cNote.value});save();toast('Compromisso salvo 📅');}
+function between(d,a,b){return d>=a&&d<=b}
+function sums(days){
+ return days.reduce((o,x)=>{o.entry+=x.entry;o.expense+=x.expense;o.km+=x.km;return o},{entry:0,expense:0,km:0})
+}
+function refresh(){
+ const today=isoToday(), now=new Date(), dayStart=new Date(now);dayStart.setHours(0,0,0,0);let weekStart=new Date(dayStart);weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));let weekEnd=new Date(weekStart);weekEnd.setDate(weekEnd.getDate()+6);
+ const month= today.slice(0,7), t=sums(data.days.filter(x=>x.date===today)), w=sums(data.days.filter(x=>{let z=new Date(x.date+'T12:00');return z>=weekStart&&z<=weekEnd})), m=sums(data.days.filter(x=>x.date.startsWith(month)));
+ hEntry.textContent=brl(t.entry);hExpense.textContent=brl(t.expense);hNet.textContent=brl(t.entry-t.expense);hKm.textContent=t.km.toLocaleString('pt-BR')+' km';hClose.textContent=brl(t.entry-t.expense);
+ rToday.textContent=brl(t.entry-t.expense);rWeek.textContent=brl(w.entry-w.expense);rMonth.textContent=brl(m.entry-m.expense);rKm.textContent=m.km.toLocaleString('pt-BR')+' km';
+ rmEntry.textContent=brl(m.entry);rmExp.textContent=brl(m.expense);rmNet.textContent=brl(m.entry-m.expense);rmKm.textContent=m.km.toLocaleString('pt-BR')+' km';rmPerKm.textContent=brl(m.km?(m.entry-m.expense)/m.km:0);
+ fuelRows.innerHTML=data.fuel.slice().reverse().map(x=>`<tr><td>${x.date.split('-').reverse().join('/')}</td><td>${x.km}</td><td>${x.liters}</td><td>${brl(x.value)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Nenhum abastecimento</td></tr>';
+ maintRows.innerHTML=data.maint.slice().reverse().map(x=>`<tr><td>${x.date.split('-').reverse().join('/')}</td><td>${x.type}</td><td>${x.km}</td><td>${brl(x.value)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Nenhuma manutenção</td></tr>';
+ calRows.innerHTML=data.cal.slice().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).map(x=>`<tr><td>${x.date.split('-').reverse().join('/')}</td><td>${x.time||''}</td><td>${x.title}</td></tr>`).join('')||'<tr><td colspan="3" class="empty">Nenhum compromisso</td></tr>';
+}
+refresh();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+</script>
+</body></html>

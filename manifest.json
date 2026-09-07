@@ -1,0 +1,10 @@
+{
+  "name":"Diego Taxi",
+  "short_name":"Diego Taxi",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#061522",
+  "theme_color":"#061522",
+  "lang":"pt-BR",
+  "icons":[]
+}
