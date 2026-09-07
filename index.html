@@ -9,152 +9,83 @@
 <title>Diego Taxi</title>
 <style>
 :root{--bg:#061522;--card:#0d2435;--card2:#102d41;--yellow:#ffd21a;--blue:#0877d1;--text:#f7f9fb;--muted:#9fb0bd;--green:#45e08b;--red:#ff6262}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#061522,#071b2a 60%,#04111b);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
-.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:82px}
-header{position:sticky;top:0;z-index:5;background:rgba(6,21,34,.96);backdrop-filter:blur(10px);padding:16px 18px;border-bottom:1px solid #17364b}
-.brand{display:flex;align-items:center;gap:10px}.taxi-icon{font-size:30px}.brand h1{margin:0;font-size:25px}.brand b{color:var(--yellow)}.sub{font-size:11px;color:var(--muted);margin-top:2px}
-main{padding:18px}.screen{display:none}.screen.active{display:block}
-.date{color:var(--muted);font-size:13px;margin:2px 0 14px}.hero{background:linear-gradient(135deg,#0d3551,#071c2b);border:1px solid #17415d;border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 10px 25px #0005}
-.hero-title{font-size:26px;font-weight:800}.hero p{margin:6px 0 0;color:var(--muted)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:var(--card);border:1px solid #173b51;border-radius:17px;padding:15px}.label{font-size:12px;color:var(--muted)}.value{font-size:21px;font-weight:800;margin-top:7px}.yellow{color:var(--yellow)}.green{color:var(--green)}.red{color:var(--red)}
-.big{margin-top:10px;background:#071e2d;border:1px solid #176348;border-radius:18px;padding:17px}.big .value{font-size:29px}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{border:0;border-radius:16px;padding:16px 12px;font-weight:800;font-size:15px;background:var(--card2);color:white;border:1px solid #1c4962}.btn.primary{background:var(--yellow);color:#111;border-color:var(--yellow)}.btn.full{grid-column:1/-1}
-.section-title{font-size:21px;font-weight:800;margin:4px 0 15px}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#061522,#071b2a 60%,#04111b);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:82px}
+header{position:sticky;top:0;z-index:5;background:rgba(6,21,34,.96);backdrop-filter:blur(10px);padding:16px 18px;border-bottom:1px solid #17364b}.brand{display:flex;align-items:center;gap:10px}.taxi-icon{font-size:30px}.brand h1{margin:0;font-size:25px}.brand b{color:var(--yellow)}.sub{font-size:11px;color:var(--muted);margin-top:2px}
+main{padding:18px}.screen{display:none}.screen.active{display:block}.date{color:var(--muted);font-size:13px;margin:2px 0 14px}.hero{background:linear-gradient(135deg,#0d3551,#071c2b);border:1px solid #17415d;border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 10px 25px #0005}.hero-title{font-size:26px;font-weight:800}.hero p{margin:6px 0 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:var(--card);border:1px solid #173b51;border-radius:17px;padding:15px}.label{font-size:12px;color:var(--muted)}.value{font-size:21px;font-weight:800;margin-top:7px}.yellow{color:var(--yellow)}.green{color:var(--green)}.red{color:var(--red)}.big{margin-top:10px;background:#071e2d;border:1px solid #176348;border-radius:18px;padding:17px}.big .value{font-size:29px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{border:0;border-radius:16px;padding:14px 11px;font-weight:800;font-size:14px;background:var(--card2);color:white;border:1px solid #1c4962}.btn.primary{background:var(--yellow);color:#111;border-color:var(--yellow)}.btn.full{grid-column:1/-1}.btn.danger{background:#3a1820;border-color:#7b2d38;color:#ffb1b1}.btn.small{padding:8px 9px;border-radius:10px;font-size:12px}.btn.edit{background:#143b55;border-color:#27658b}.section-title{font-size:21px;font-weight:800;margin:4px 0 15px}
 .form{background:var(--card);border:1px solid #173b51;border-radius:18px;padding:16px}.field{margin-bottom:13px}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.field input,.field textarea,.field select{width:100%;padding:13px;border-radius:12px;border:1px solid #31556a;background:#081a28;color:white;font-size:16px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:9px 5px;border-bottom:1px solid #1a3a4c}th{color:var(--yellow)}
-.empty{padding:28px 10px;text-align:center;color:var(--muted)}
-.bottom{position:fixed;bottom:0;left:0;right:0;margin:auto;max-width:520px;height:70px;background:#061522ee;border-top:1px solid #17364b;display:grid;grid-template-columns:repeat(4,1fr);z-index:10}.nav{border:0;background:none;color:#91a1ae;font-size:11px}.nav span{display:block;font-size:22px;margin-bottom:2px}.nav.active{color:var(--yellow);font-weight:800}
-.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#132f42;color:#fff;padding:12px 16px;border-radius:12px;display:none;z-index:20;box-shadow:0 8px 30px #0008}
-.note{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.4}
-@media(max-width:360px){main{padding:14px}.value{font-size:18px}.btn{font-size:13px}}
+.filter{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}.filter select{width:100%;padding:12px;border-radius:12px;border:1px solid #31556a;background:#081a28;color:white;font-size:15px}.muted{color:var(--muted)}.history-item{background:#081b29;border:1px solid #1a4055;border-radius:14px;padding:12px;margin-top:10px}.history-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.history-title{font-weight:800}.history-meta{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5}.history-actions{display:flex;gap:7px;margin-top:10px}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.mini{background:#0d2738;border-radius:10px;padding:8px}.mini span{display:block;font-size:10px;color:var(--muted)}.mini b{display:block;margin-top:3px;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:9px 5px;border-bottom:1px solid #1a3a4c;vertical-align:middle}th{color:var(--yellow)}.empty{padding:28px 10px;text-align:center;color:var(--muted)}.table-actions{display:flex;gap:5px;white-space:nowrap}.month-title{font-weight:800;margin:12px 0 8px}.note{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.4}
+.bottom{position:fixed;bottom:0;left:0;right:0;margin:auto;max-width:520px;height:70px;background:#061522ee;border-top:1px solid #17364b;display:grid;grid-template-columns:repeat(4,1fr);z-index:10}.nav{border:0;background:none;color:#91a1ae;font-size:11px}.nav span{display:block;font-size:22px;margin-bottom:2px}.nav.active{color:var(--yellow);font-weight:800}.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#132f42;color:#fff;padding:12px 16px;border-radius:12px;display:none;z-index:20;box-shadow:0 8px 30px #0008;max-width:90%;text-align:center}.modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;justify-content:center;z-index:30}.modal.open{display:flex}.modal-box{width:min(520px,100%);background:#0b2232;border:1px solid #24536d;border-radius:22px 22px 0 0;padding:20px}.modal-box h3{margin:0 0 8px}.modal-box p{color:var(--muted);font-size:14px;line-height:1.4}.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+@media(max-width:360px){main{padding:14px}.value{font-size:18px}.btn{font-size:13px}.history-head{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
 <body>
 <div class="app">
 <header><div class="brand"><div class="taxi-icon">🚕</div><div><h1>Diego <b>Taxi</b></h1><div class="sub">CONTROLE DO SEU TÁXI</div></div></div></header>
-
 <main>
 <section id="home" class="screen active">
-<div class="date" id="today"></div>
-<div class="hero"><div class="hero-title">Bom dia, Diego! 👋</div><p>Seu controle de trabalho, simples e direto.</p></div>
-<div class="grid">
-<div class="card"><div class="label">💰 ENTRADA HOJE</div><div class="value yellow" id="hEntry">R$ 0,00</div></div>
-<div class="card"><div class="label">💸 DESPESAS HOJE</div><div class="value red" id="hExpense">R$ 0,00</div></div>
-<div class="card"><div class="label">📈 LÍQUIDO HOJE</div><div class="value green" id="hNet">R$ 0,00</div></div>
-<div class="card"><div class="label">🚗 KM HOJE</div><div class="value" id="hKm">0 km</div></div>
-</div>
+<div class="date" id="today"></div><div class="hero"><div class="hero-title">Bom dia, Diego! 👋</div><p>Seu controle de trabalho, simples e direto.</p></div>
+<div class="grid"><div class="card"><div class="label">💰 ENTRADA HOJE</div><div class="value yellow" id="hEntry">R$ 0,00</div></div><div class="card"><div class="label">💸 DESPESAS HOJE</div><div class="value red" id="hExpense">R$ 0,00</div></div><div class="card"><div class="label">📈 LÍQUIDO HOJE</div><div class="value green" id="hNet">R$ 0,00</div></div><div class="card"><div class="label">🚗 KM HOJE</div><div class="value" id="hKm">0 km</div></div></div>
 <div class="big"><div class="label">FECHAMENTO DO DIA</div><div class="value green" id="hClose">R$ 0,00</div></div>
-<div class="actions">
-<button class="btn primary full" onclick="show('diario')">➕ Lançar dia</button>
-<button class="btn" onclick="show('abastecimento')">⛽ Abastecimento</button>
-<button class="btn" onclick="show('manutencao')">🔧 Manutenção</button>
-<button class="btn" onclick="show('calendario')">📅 Calendário</button>
-<button class="btn" onclick="show('resumo')">📊 Relatórios</button>
-</div>
+<div class="actions"><button class="btn primary full" onclick="startNewDay()">➕ Lançar dia</button><button class="btn" onclick="show('abastecimento')">⛽ Abastecimento</button><button class="btn" onclick="show('manutencao')">🔧 Manutenção</button><button class="btn" onclick="show('calendario')">📅 Calendário</button><button class="btn" onclick="show('resumo')">📊 Relatórios</button><button class="btn full" onclick="show('historico')">🗂️ Histórico e edição</button></div>
 </section>
 
-<section id="diario" class="screen">
-<div class="section-title">🚕 Lançar dia</div>
-<div class="form">
-<div class="field"><label>Data</label><input id="dDate" type="date"></div>
-<div class="row"><div class="field"><label>KM inicial</label><input id="dStart" type="number" inputmode="decimal"></div><div class="field"><label>KM final</label><input id="dEnd" type="number" inputmode="decimal"></div></div>
-<div class="row"><div class="field"><label>Dinheiro</label><input id="dCash" type="number" step="0.01" inputmode="decimal"></div><div class="field"><label>PIX / Cartão</label><input id="dCard" type="number" step="0.01" inputmode="decimal"></div></div>
-<div class="row"><div class="field"><label>Combustível</label><input id="dFuel" type="number" step="0.01" inputmode="decimal"></div><div class="field"><label>Outras despesas</label><input id="dOther" type="number" step="0.01" inputmode="decimal"></div></div>
-<div class="field"><label>Observação</label><textarea id="dNote" rows="3" placeholder="Ex.: lavagem, pedágio, almoço..."></textarea></div>
-<button class="btn primary full" onclick="saveDay()">💾 Salvar dia</button>
-<div class="note">O sistema calcula automaticamente KM, entrada, despesas e líquido.</div>
-</div>
-</section>
+<section id="diario" class="screen"><div class="section-title">🚕 <span id="dayFormTitle">Lançar dia</span></div><div class="form">
+<div class="field"><label>Data</label><input id="dDate" type="date"></div><div class="row"><div class="field"><label>KM inicial</label><input id="dStart" type="number" inputmode="decimal"></div><div class="field"><label>KM final</label><input id="dEnd" type="number" inputmode="decimal"></div></div><div class="row"><div class="field"><label>Dinheiro</label><input id="dCash" type="number" step="0.01" inputmode="decimal"></div><div class="field"><label>PIX / Cartão</label><input id="dCard" type="number" step="0.01" inputmode="decimal"></div></div><div class="row"><div class="field"><label>Combustível</label><input id="dFuel" type="number" step="0.01" inputmode="decimal"></div><div class="field"><label>Outras despesas</label><input id="dOther" type="number" step="0.01" inputmode="decimal"></div></div><div class="field"><label>Observação</label><textarea id="dNote" rows="3" placeholder="Ex.: lavagem, pedágio, almoço..."></textarea></div>
+<button class="btn primary full" id="daySaveBtn" onclick="saveDay()">💾 Salvar dia</button><button class="btn full" id="dayCancelBtn" style="display:none" onclick="cancelEdit('diario')">Cancelar edição</button><div class="note">O sistema calcula automaticamente KM, entrada, despesas e líquido. Você pode lançar datas anteriores.</div></div></section>
 
-<section id="abastecimento" class="screen">
-<div class="section-title">⛽ Abastecimento</div><div class="form">
-<div class="row"><div class="field"><label>Data</label><input id="fDate" type="date"></div><div class="field"><label>KM</label><input id="fKm" type="number" inputmode="decimal"></div></div>
-<div class="row"><div class="field"><label>Litros</label><input id="fLiters" type="number" step="0.01" inputmode="decimal"></div><div class="field"><label>Valor (R$)</label><input id="fValue" type="number" step="0.01" inputmode="decimal"></div></div>
-<div class="field"><label>Posto</label><input id="fStation"></div>
-<button class="btn primary full" onclick="saveFuel()">💾 Salvar abastecimento</button>
-</div><div class="form" style="margin-top:12px"><table><thead><tr><th>Data</th><th>KM</th><th>Litros</th><th>Valor</th></tr></thead><tbody id="fuelRows"></tbody></table></div>
-</section>
+<section id="historico" class="screen"><div class="section-title">🗂️ Histórico e edição</div><div class="form"><div class="filter"><div><label class="label">Mês para consultar</label><select id="historyMonth" onchange="refreshHistory()"></select></div><button class="btn" onclick="startNewDay()">➕ Novo dia</button></div></div><div id="dayHistory"></div></section>
 
-<section id="manutencao" class="screen">
-<div class="section-title">🔧 Manutenção</div><div class="form">
-<div class="row"><div class="field"><label>Data</label><input id="mDate" type="date"></div><div class="field"><label>KM</label><input id="mKm" type="number"></div></div>
-<div class="field"><label>Tipo</label><select id="mType"><option>Troca de óleo</option><option>Revisão</option><option>Freios</option><option>Pneus</option><option>Bateria</option><option>Oficina</option><option>Filtros</option><option>Outro</option></select></div>
-<div class="row"><div class="field"><label>Valor (R$)</label><input id="mValue" type="number" step="0.01"></div><div class="field"><label>Próximo KM</label><input id="mNext" type="number"></div></div>
-<div class="field"><label>Descrição</label><input id="mDesc" placeholder="Ex.: óleo + filtro"></div>
-<button class="btn primary full" onclick="saveMaintenance()">💾 Salvar manutenção</button>
-</div><div class="form" style="margin-top:12px"><table><thead><tr><th>Data</th><th>Tipo</th><th>KM</th><th>Valor</th></tr></thead><tbody id="maintRows"></tbody></table></div>
-</section>
+<section id="abastecimento" class="screen"><div class="section-title">⛽ <span id="fuelFormTitle">Abastecimento</span></div><div class="form"><div class="row"><div class="field"><label>Data</label><input id="fDate" type="date"></div><div class="field"><label>KM</label><input id="fKm" type="number" inputmode="decimal"></div></div><div class="row"><div class="field"><label>Litros</label><input id="fLiters" type="number" step="0.01" inputmode="decimal"></div><div class="field"><label>Valor (R$)</label><input id="fValue" type="number" step="0.01" inputmode="decimal"></div></div><div class="field"><label>Posto</label><input id="fStation"></div><button class="btn primary full" id="fuelSaveBtn" onclick="saveFuel()">💾 Salvar abastecimento</button><button class="btn full" id="fuelCancelBtn" style="display:none" onclick="cancelEdit('abastecimento')">Cancelar edição</button></div><div class="form" style="margin-top:12px"><table><thead><tr><th>Data</th><th>KM</th><th>Valor</th><th>Ações</th></tr></thead><tbody id="fuelRows"></tbody></table></div></section>
 
-<section id="calendario" class="screen">
-<div class="section-title">📅 Calendário</div><div class="form">
-<div class="row"><div class="field"><label>Data</label><input id="cDate" type="date"></div><div class="field"><label>Horário</label><input id="cTime" type="time"></div></div>
-<div class="field"><label>Compromisso</label><input id="cTitle" placeholder="Ex.: troca de óleo"></div>
-<div class="field"><label>Observação</label><input id="cNote"></div>
-<button class="btn primary full" onclick="saveCalendar()">💾 Salvar compromisso</button>
-</div><div class="form" style="margin-top:12px"><table><thead><tr><th>Data</th><th>Hora</th><th>Compromisso</th></tr></thead><tbody id="calRows"></tbody></table></div>
-</section>
+<section id="manutencao" class="screen"><div class="section-title">🔧 <span id="maintFormTitle">Manutenção</span></div><div class="form"><div class="row"><div class="field"><label>Data</label><input id="mDate" type="date"></div><div class="field"><label>KM</label><input id="mKm" type="number"></div></div><div class="field"><label>Tipo</label><select id="mType"><option>Troca de óleo</option><option>Revisão</option><option>Freios</option><option>Pneus</option><option>Bateria</option><option>Oficina</option><option>Filtros</option><option>Outro</option></select></div><div class="row"><div class="field"><label>Valor (R$)</label><input id="mValue" type="number" step="0.01"></div><div class="field"><label>Próximo KM</label><input id="mNext" type="number"></div></div><div class="field"><label>Descrição</label><input id="mDesc" placeholder="Ex.: óleo + filtro"></div><button class="btn primary full" id="maintSaveBtn" onclick="saveMaintenance()">💾 Salvar manutenção</button><button class="btn full" id="maintCancelBtn" style="display:none" onclick="cancelEdit('manutencao')">Cancelar edição</button></div><div class="form" style="margin-top:12px"><table><thead><tr><th>Data</th><th>Tipo</th><th>KM</th><th>Valor</th><th>Ações</th></tr></thead><tbody id="maintRows"></tbody></table></div></section>
 
-<section id="resumo" class="screen">
-<div class="section-title">📊 Relatórios</div>
-<div class="grid">
-<div class="card"><div class="label">HOJE</div><div class="value" id="rToday">R$ 0,00</div></div>
-<div class="card"><div class="label">SEMANA</div><div class="value" id="rWeek">R$ 0,00</div></div>
-<div class="card"><div class="label">MÊS</div><div class="value yellow" id="rMonth">R$ 0,00</div></div>
-<div class="card"><div class="label">KM DO MÊS</div><div class="value" id="rKm">0 km</div></div>
-</div>
-<div class="form" style="margin-top:12px">
-<div class="label">RESUMO DO MÊS</div>
-<table><tbody><tr><td>Entrada</td><td id="rmEntry">R$ 0,00</td></tr><tr><td>Despesas</td><td id="rmExp">R$ 0,00</td></tr><tr><td><b>Líquido</b></td><td id="rmNet"><b>R$ 0,00</b></td></tr><tr><td>KM</td><td id="rmKm">0 km</td></tr><tr><td>Líquido/KM</td><td id="rmPerKm">R$ 0,00</td></tr></tbody></table>
-</div>
-</section>
+<section id="calendario" class="screen"><div class="section-title">📅 <span id="calFormTitle">Calendário</span></div><div class="form"><div class="row"><div class="field"><label>Data</label><input id="cDate" type="date"></div><div class="field"><label>Horário</label><input id="cTime" type="time"></div></div><div class="field"><label>Compromisso</label><input id="cTitle" placeholder="Ex.: troca de óleo"></div><div class="field"><label>Observação</label><input id="cNote"></div><button class="btn primary full" id="calSaveBtn" onclick="saveCalendar()">💾 Salvar compromisso</button><button class="btn full" id="calCancelBtn" style="display:none" onclick="cancelEdit('calendario')">Cancelar edição</button></div><div class="form" style="margin-top:12px"><table><thead><tr><th>Data</th><th>Hora</th><th>Compromisso</th><th>Ações</th></tr></thead><tbody id="calRows"></tbody></table></div></section>
+
+<section id="resumo" class="screen"><div class="section-title">📊 Relatórios</div><div class="form"><div class="field"><label>Consultar mês</label><select id="reportMonth" onchange="refreshReport()"></select></div></div><div class="grid" style="margin-top:12px"><div class="card"><div class="label">HOJE</div><div class="value" id="rToday">R$ 0,00</div></div><div class="card"><div class="label">SEMANA</div><div class="value" id="rWeek">R$ 0,00</div></div><div class="card"><div class="label" id="rMonthLabel">MÊS</div><div class="value yellow" id="rMonth">R$ 0,00</div></div><div class="card"><div class="label">KM DO MÊS</div><div class="value" id="rKm">0 km</div></div></div><div class="form" style="margin-top:12px"><div class="label" id="reportTitle">RESUMO DO MÊS</div><table><tbody><tr><td>Entrada</td><td id="rmEntry">R$ 0,00</td></tr><tr><td>Despesas</td><td id="rmExp">R$ 0,00</td></tr><tr><td><b>Líquido</b></td><td id="rmNet"><b>R$ 0,00</b></td></tr><tr><td>KM</td><td id="rmKm">0 km</td></tr><tr><td>Líquido/KM</td><td id="rmPerKm">R$ 0,00</td></tr></tbody></table></div></section>
 </main>
-<nav class="bottom">
-<button class="nav active" data-screen="home" onclick="show('home')"><span>⌂</span>Início</button>
-<button class="nav" data-screen="diario" onclick="show('diario')"><span>▣</span>Diário</button>
-<button class="nav" data-screen="resumo" onclick="show('resumo')"><span>▥</span>Resumo</button>
-<button class="nav" data-screen="manutencao" onclick="show('manutencao')"><span>•••</span>Mais</button>
-</nav>
+<nav class="bottom"><button class="nav active" data-screen="home" onclick="show('home')"><span>⌂</span>Início</button><button class="nav" data-screen="diario" onclick="startNewDay()"><span>▣</span>Diário</button><button class="nav" data-screen="resumo" onclick="show('resumo')"><span>▥</span>Resumo</button><button class="nav" data-screen="historico" onclick="show('historico')"><span>•••</span>Mais</button></nav>
 <div class="toast" id="toast"></div>
-</div>
+<div class="modal" id="deleteModal"><div class="modal-box"><h3>Excluir lançamento?</h3><p id="deleteText">Essa ação não poderá ser desfeita.</p><div class="modal-actions"><button class="btn" onclick="closeDelete()">Cancelar</button><button class="btn danger" onclick="confirmDelete()">🗑️ Excluir</button></div></div></div>
 <script>
 const KEY='diegoTaxiV1';
 let data=JSON.parse(localStorage.getItem(KEY)||'{"days":[],"fuel":[],"maint":[],"cal":[]}');
+if(!data.days)data.days=[];if(!data.fuel)data.fuel=[];if(!data.maint)data.maint=[];if(!data.cal)data.cal=[];
+let editing={days:null,fuel:null,maint:null,cal:null};let pendingDelete=null;
 const brl=v=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(v)||0);
 const num=id=>Number(document.getElementById(id).value)||0;
-const isoToday=()=>new Date().toISOString().slice(0,10);
-document.getElementById('today').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
-['dDate','fDate','mDate','cDate'].forEach(id=>document.getElementById(id).value=isoToday());
+const isoToday=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDate=d=>d?d.split('-').reverse().join('/'):'-';
+const monthName=m=>{const [y,mo]=m.split('-');return new Date(Number(y),Number(mo)-1,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'}).replace(/^./,x=>x.toUpperCase())};
+function save(){localStorage.setItem(KEY,JSON.stringify(data));refresh()}
+function toast(t){const x=document.getElementById('toast');x.textContent=t;x.style.display='block';clearTimeout(window._toast);window._toast=setTimeout(()=>x.style.display='none',1900)}
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.screen===id));refresh();window.scrollTo(0,0)}
+function startNewDay(){resetForm('days');document.getElementById('dDate').value=isoToday();document.getElementById('dayFormTitle').textContent='Lançar dia';document.getElementById('daySaveBtn').textContent='💾 Salvar dia';show('diario')}
+function saveDay(){const date=dDate.value;if(!date){toast('Informe a data.');return}const start=num('dStart'),end=num('dEnd');if(end<start){toast('KM final não pode ser menor que o inicial.');return}const item={date,start,end,km:Math.max(0,end-start),entry:num('dCash')+num('dCard'),expense:num('dFuel')+num('dOther'),cash:num('dCash'),card:num('dCard'),fuel:num('dFuel'),other:num('dOther'),note:dNote.value};if(editing.days!==null){data.days[editing.days]=item;editing.days=null;toast('Dia atualizado ✏️')}else{data.days.push(item);toast('Dia salvo com sucesso 🚕')}save();resetForm('days');show('home')}
+function saveFuel(){const date=fDate.value;if(!date){toast('Informe a data.');return}const item={date,km:num('fKm'),liters:num('fLiters'),value:num('fValue'),station:fStation.value};if(editing.fuel!==null){data.fuel[editing.fuel]=item;editing.fuel=null;toast('Abastecimento atualizado ✏️')}else{data.fuel.push(item);toast('Abastecimento salvo ⛽')}save();resetForm('fuel')}
+function saveMaintenance(){const date=mDate.value;if(!date){toast('Informe a data.');return}const item={date,km:num('mKm'),type:mType.value,value:num('mValue'),next:num('mNext'),desc:mDesc.value};if(editing.maint!==null){data.maint[editing.maint]=item;editing.maint=null;toast('Manutenção atualizada ✏️')}else{data.maint.push(item);toast('Manutenção salva 🔧')}save();resetForm('maint')}
+function saveCalendar(){const date=cDate.value;if(!date){toast('Informe a data.');return}const item={date,time:cTime.value,title:cTitle.value,note:cNote.value};if(editing.cal!==null){data.cal[editing.cal]=item;editing.cal=null;toast('Compromisso atualizado ✏️')}else{data.cal.push(item);toast('Compromisso salvo 📅')}save();resetForm('cal')}
+function editDay(i){const x=data.days[i];editing.days=i;dDate.value=x.date;dStart.value=x.start??0;dEnd.value=x.end??0;dCash.value=x.cash??0;dCard.value=x.card??0;dFuel.value=x.fuel??0;dOther.value=x.other??0;dNote.value=x.note||'';dayFormTitle.textContent='Editar dia';daySaveBtn.textContent='✏️ Atualizar dia';dayCancelBtn.style.display='block';show('diario')}
+function editFuel(i){const x=data.fuel[i];editing.fuel=i;fDate.value=x.date;fKm.value=x.km||0;fLiters.value=x.liters||0;fValue.value=x.value||0;fStation.value=x.station||'';fuelFormTitle.textContent='Editar abastecimento';fuelSaveBtn.textContent='✏️ Atualizar abastecimento';fuelCancelBtn.style.display='block';show('abastecimento')}
+function editMaint(i){const x=data.maint[i];editing.maint=i;mDate.value=x.date;mKm.value=x.km||0;mType.value=x.type||'Outro';mValue.value=x.value||0;mNext.value=x.next||0;mDesc.value=x.desc||'';maintFormTitle.textContent='Editar manutenção';maintSaveBtn.textContent='✏️ Atualizar manutenção';maintCancelBtn.style.display='block';show('manutencao')}
+function editCal(i){const x=data.cal[i];editing.cal=i;cDate.value=x.date;cTime.value=x.time||'';cTitle.value=x.title||'';cNote.value=x.note||'';calFormTitle.textContent='Editar compromisso';calSaveBtn.textContent='✏️ Atualizar compromisso';calCancelBtn.style.display='block';show('calendario')}
+function askDelete(type,i,label){pendingDelete={type,i};document.getElementById('deleteText').textContent='Excluir '+label+'? Essa ação não poderá ser desfeita.';document.getElementById('deleteModal').classList.add('open')}
+function closeDelete(){pendingDelete=null;document.getElementById('deleteModal').classList.remove('open')}
+function confirmDelete(){if(!pendingDelete)return;const {type,i}=pendingDelete;data[type].splice(i,1);closeDelete();save();toast('Lançamento excluído 🗑️')}
+function resetForm(type){if(type==='days'){['dStart','dEnd','dCash','dCard','dFuel','dOther','dNote'].forEach(id=>document.getElementById(id).value='');dayCancelBtn.style.display='none';dayFormTitle.textContent='Lançar dia';daySaveBtn.textContent='💾 Salvar dia';editing.days=null}if(type==='fuel'){['fKm','fLiters','fValue','fStation'].forEach(id=>document.getElementById(id).value='');fDate.value=isoToday();fuelCancelBtn.style.display='none';fuelFormTitle.textContent='Abastecimento';fuelSaveBtn.textContent='💾 Salvar abastecimento';editing.fuel=null}if(type==='maint'){['mKm','mValue','mNext','mDesc'].forEach(id=>document.getElementById(id).value='');mDate.value=isoToday();maintCancelBtn.style.display='none';maintFormTitle.textContent='Manutenção';maintSaveBtn.textContent='💾 Salvar manutenção';editing.maint=null}if(type==='cal'){['cTime','cTitle','cNote'].forEach(id=>document.getElementById(id).value='');cDate.value=isoToday();calCancelBtn.style.display='none';calFormTitle.textContent='Calendário';calSaveBtn.textContent='💾 Salvar compromisso';editing.cal=null}}
+function cancelEdit(screen){resetForm(screen==='diario'?'days':screen==='abastecimento'?'fuel':screen==='manutencao'?'maint':'cal');show(screen)}
+function sums(days){return days.reduce((o,x)=>{o.entry+=Number(x.entry)||0;o.expense+=Number(x.expense)||0;o.km+=Number(x.km)||0;return o},{entry:0,expense:0,km:0})}
+function months(){const set=new Set();data.days.forEach(x=>x.date&&set.add(x.date.slice(0,7)));data.fuel.forEach(x=>x.date&&set.add(x.date.slice(0,7)));data.maint.forEach(x=>x.date&&set.add(x.date.slice(0,7)));data.cal.forEach(x=>x.date&&set.add(x.date.slice(0,7)));set.add(isoToday().slice(0,7));return [...set].sort().reverse()}
+function fillMonthSelect(id,selected){const el=document.getElementById(id);if(!el)return;const ms=months();el.innerHTML=ms.map(m=>`<option value="${m}">${esc(monthName(m))}</option>`).join('');el.value=selected&&ms.includes(selected)?selected:ms[0]}
+function refreshHistory(){const month=historyMonth.value||isoToday().slice(0,7);const arr=data.days.map((x,i)=>({...x,_i:i})).filter(x=>x.date.startsWith(month)).sort((a,b)=>b.date.localeCompare(a.date));dayHistory.innerHTML=arr.length?arr.map(x=>`<div class="history-item"><div class="history-head"><div class="history-title">🚕 ${fmtDate(x.date)}</div><div class="green"><b>${brl((x.entry||0)-(x.expense||0))}</b></div></div><div class="history-meta">KM: ${Number(x.km||0).toLocaleString('pt-BR')} · Entrada: ${brl(x.entry)} · Despesas: ${brl(x.expense)}${x.note?'<br>📝 '+esc(x.note):''}</div><div class="history-actions"><button class="btn small edit" onclick="editDay(${x._i})">✏️ Editar</button><button class="btn small danger" onclick="askDelete('days',${x._i},'o lançamento de '+fmtDate(x.date))">🗑️ Excluir</button></div></div>`).join(''):`<div class="empty">Nenhum lançamento em ${esc(monthName(month))}.</div>`}
+function refreshReport(){const today=isoToday(),month=reportMonth.value||today.slice(0,7),now=new Date(),dayStart=new Date(now);dayStart.setHours(0,0,0,0);let weekStart=new Date(dayStart);weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));let weekEnd=new Date(weekStart);weekEnd.setDate(weekEnd.getDate()+6);const t=sums(data.days.filter(x=>x.date===today)),w=sums(data.days.filter(x=>{const z=new Date(x.date+'T12:00');return z>=weekStart&&z<=weekEnd})),m=sums(data.days.filter(x=>x.date.startsWith(month)));rToday.textContent=brl(t.entry-t.expense);rWeek.textContent=brl(w.entry-w.expense);rMonth.textContent=brl(m.entry-m.expense);rMonthLabel.textContent=monthName(month).toUpperCase();rKm.textContent=m.km.toLocaleString('pt-BR')+' km';reportTitle.textContent='RESUMO DE '+monthName(month).toUpperCase();rmEntry.textContent=brl(m.entry);rmExp.textContent=brl(m.expense);rmNet.textContent=brl(m.entry-m.expense);rmKm.textContent=m.km.toLocaleString('pt-BR')+' km';rmPerKm.textContent=brl(m.km?(m.entry-m.expense)/m.km:0)}
+function refresh(){const today=isoToday(),now=new Date(),dayStart=new Date(now);dayStart.setHours(0,0,0,0);let weekStart=new Date(dayStart);weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));let weekEnd=new Date(weekStart);weekEnd.setDate(weekEnd.getDate()+6);const month=today.slice(0,7),t=sums(data.days.filter(x=>x.date===today));hEntry.textContent=brl(t.entry);hExpense.textContent=brl(t.expense);hNet.textContent=brl(t.entry-t.expense);hKm.textContent=t.km.toLocaleString('pt-BR')+' km';hClose.textContent=brl(t.entry-t.expense);fillMonthSelect('historyMonth',document.getElementById('historyMonth').value);fillMonthSelect('reportMonth',document.getElementById('reportMonth').value);refreshHistory();refreshReport();fuelRows.innerHTML=data.fuel.map((x,i)=>({...x,_i:i})).sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<tr><td>${fmtDate(x.date)}</td><td>${x.km||0}</td><td>${brl(x.value)}</td><td><div class="table-actions"><button class="btn small edit" onclick="editFuel(${x._i})">✏️</button><button class="btn small danger" onclick="askDelete('fuel',${x._i},'este abastecimento')">🗑️</button></div></td></tr>`).join('')||'<tr><td colspan="4" class="empty">Nenhum abastecimento</td></tr>';maintRows.innerHTML=data.maint.map((x,i)=>({...x,_i:i})).sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<tr><td>${fmtDate(x.date)}</td><td>${esc(x.type)}</td><td>${x.km||0}</td><td>${brl(x.value)}</td><td><div class="table-actions"><button class="btn small edit" onclick="editMaint(${x._i})">✏️</button><button class="btn small danger" onclick="askDelete('maint',${x._i},'esta manutenção')">🗑️</button></div></td></tr>`).join('')||'<tr><td colspan="5" class="empty">Nenhuma manutenção</td></tr>';calRows.innerHTML=data.cal.map((x,i)=>({...x,_i:i})).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).map(x=>`<tr><td>${fmtDate(x.date)}</td><td>${esc(x.time||'')}</td><td>${esc(x.title)}</td><td><div class="table-actions"><button class="btn small edit" onclick="editCal(${x._i})">✏️</button><button class="btn small danger" onclick="askDelete('cal',${x._i},'este compromisso')">🗑️</button></div></td></tr>`).join('')||'<tr><td colspan="4" class="empty">Nenhum compromisso</td></tr>'}
 
-function save(){localStorage.setItem(KEY,JSON.stringify(data)); refresh();}
-function toast(t){const x=document.getElementById('toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',1800)}
-function show(id){
- document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');
- document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.screen===id));
- refresh();window.scrollTo(0,0);
-}
-function saveDay(){
- const start=num('dStart'),end=num('dEnd'),cash=num('dCash'),card=num('dCard'),fuel=num('dFuel'),other=num('dOther');
- data.days.push({date:dDate.value,start,end,km:Math.max(0,end-start),entry:cash+card,expense:fuel+other,note:dNote.value});
- save();toast('Dia salvo com sucesso 🚕');show('home');
-}
-function saveFuel(){data.fuel.push({date:fDate.value,km:num('fKm'),liters:num('fLiters'),value:num('fValue'),station:fStation.value});save();toast('Abastecimento salvo ⛽');}
-function saveMaintenance(){data.maint.push({date:mDate.value,km:num('mKm'),type:mType.value,value:num('mValue'),next:num('mNext'),desc:mDesc.value});save();toast('Manutenção salva 🔧');}
-function saveCalendar(){data.cal.push({date:cDate.value,time:cTime.value,title:cTitle.value,note:cNote.value});save();toast('Compromisso salvo 📅');}
-function between(d,a,b){return d>=a&&d<=b}
-function sums(days){
- return days.reduce((o,x)=>{o.entry+=x.entry;o.expense+=x.expense;o.km+=x.km;return o},{entry:0,expense:0,km:0})
-}
-function refresh(){
- const today=isoToday(), now=new Date(), dayStart=new Date(now);dayStart.setHours(0,0,0,0);let weekStart=new Date(dayStart);weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));let weekEnd=new Date(weekStart);weekEnd.setDate(weekEnd.getDate()+6);
- const month= today.slice(0,7), t=sums(data.days.filter(x=>x.date===today)), w=sums(data.days.filter(x=>{let z=new Date(x.date+'T12:00');return z>=weekStart&&z<=weekEnd})), m=sums(data.days.filter(x=>x.date.startsWith(month)));
- hEntry.textContent=brl(t.entry);hExpense.textContent=brl(t.expense);hNet.textContent=brl(t.entry-t.expense);hKm.textContent=t.km.toLocaleString('pt-BR')+' km';hClose.textContent=brl(t.entry-t.expense);
- rToday.textContent=brl(t.entry-t.expense);rWeek.textContent=brl(w.entry-w.expense);rMonth.textContent=brl(m.entry-m.expense);rKm.textContent=m.km.toLocaleString('pt-BR')+' km';
- rmEntry.textContent=brl(m.entry);rmExp.textContent=brl(m.expense);rmNet.textContent=brl(m.entry-m.expense);rmKm.textContent=m.km.toLocaleString('pt-BR')+' km';rmPerKm.textContent=brl(m.km?(m.entry-m.expense)/m.km:0);
- fuelRows.innerHTML=data.fuel.slice().reverse().map(x=>`<tr><td>${x.date.split('-').reverse().join('/')}</td><td>${x.km}</td><td>${x.liters}</td><td>${brl(x.value)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Nenhum abastecimento</td></tr>';
- maintRows.innerHTML=data.maint.slice().reverse().map(x=>`<tr><td>${x.date.split('-').reverse().join('/')}</td><td>${x.type}</td><td>${x.km}</td><td>${brl(x.value)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Nenhuma manutenção</td></tr>';
- calRows.innerHTML=data.cal.slice().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).map(x=>`<tr><td>${x.date.split('-').reverse().join('/')}</td><td>${x.time||''}</td><td>${x.title}</td></tr>`).join('')||'<tr><td colspan="3" class="empty">Nenhum compromisso</td></tr>';
-}
-refresh();
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+document.getElementById('today').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});['dDate','fDate','mDate','cDate'].forEach(id=>document.getElementById(id).value=isoToday());refresh();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script>
+</div>
 </body></html>
