@@ -35,6 +35,13 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
 
 .maintenance-alerts{display:grid;gap:10px;margin-top:10px}.maint-alert{border:1px solid #1b5b7c;border-radius:18px;padding:14px 16px;background:#081e2b}.maint-alert-title{font-weight:800;font-size:17px;margin-bottom:5px}.maint-alert div:last-child{color:#a9bdc9;font-size:14px}.maint-alert.ok{border-color:#246f54}.maint-alert.warn{border-color:#b98a16}.maint-alert.due{border-color:#9d2e3a}.maint-alert.ok .maint-alert-title{color:#42e59a}.maint-alert.warn .maint-alert-title{color:#ffd21a}.maint-alert.due .maint-alert-title{color:#ff6a70}
 </style>
+<link rel="manifest" href="./manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Diego Taxi">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
 </head>
 <body>
 <div class="app">
@@ -247,4 +254,12 @@ document.getElementById('today').textContent=new Date().toLocaleDateString('pt-B
 
 </script>
 </div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  });
+}
+</script>
 </body></html>
