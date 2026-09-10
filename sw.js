@@ -1,5 +1,11 @@
-const CACHE = "diego-taxi-v47-pwa";
-const ASSETS = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
+const CACHE = "diego-taxi-pwa-v2";
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./icon-192.png",
+  "./icon-512.png"
+];
 
 self.addEventListener("install", event => {
   event.waitUntil(

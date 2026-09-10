@@ -41,7 +41,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Diego Taxi">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
-<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png">
 </head>
 <body>
 <div class="app">
@@ -254,12 +254,11 @@ document.getElementById('today').textContent=new Date().toLocaleDateString('pt-B
 
 </script>
 </div>
-
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('./sw.js').catch(function(){});
-  });
-}
+window.addEventListener("load", function () {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js", {scope:"./"}).catch(function(){});
+  }
+});
 </script>
 </body></html>
