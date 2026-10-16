@@ -57,6 +57,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
 <button class="home-menu-btn" onclick="show('calendario')"><span class="ico">📅</span><span>Calendário</span></button>
 
 <button class="home-menu-btn" onclick="show('calculadora')"><span class="ico">🧮</span><span>Calculadora</span></button>
+<button class="home-menu-btn" onclick="show('backup')"><span class="ico">💾</span><span>Backup / Transferir</span></button>
 </div>
 </section>
 
@@ -93,6 +94,19 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
 </div></section>
 
 <section id="resumo" class="screen"><div class="section-title">📊 Lançamentos <button type="button" class="home-back" onclick="show('home')">⌂ Início</button></div><div class="period-tabs"><button class="period-tab active" data-period="all" onclick="setPeriod('all')">Todos</button><button class="period-tab" data-period="day" onclick="setPeriod('day')">Dia</button><button class="period-tab" data-period="week" onclick="setPeriod('week')">Semanal</button><button class="period-tab" data-period="month" onclick="setPeriod('month')">Mensal</button><button class="period-tab" data-period="year" onclick="setPeriod('year')">Anual</button></div><div class="form"><div class="field"><label id="periodLabel">Período</label><div id="reportDayPicker" class="day-date-picker report-day-picker" style="display:none"><button type="button" class="date-arrow" onclick="changeReportDay(-1)" aria-label="Dia anterior">‹</button><button type="button" class="date-display" id="reportDayDisplay" onclick="openReportDatePicker()">07/09/2026 <span class="calendar-icon">▣</span></button><button type="button" class="date-arrow" onclick="changeReportDay(1)" aria-label="Próximo dia">›</button></div><div id="reportWeekPicker" class="day-date-picker report-day-picker" style="display:none"><button type="button" class="date-arrow" onclick="changeReportWeek(-1)" aria-label="Semana anterior">‹</button><button type="button" class="date-display" id="reportWeekDisplay" onclick="openReportWeekPicker()">07/09/2026 a 13/09/2026 <span class="calendar-icon">▣</span></button><button type="button" class="date-arrow" onclick="changeReportWeek(1)" aria-label="Próxima semana">›</button></div><div id="reportMonthPicker" class="day-date-picker report-day-picker" style="display:none"><button type="button" class="date-arrow" onclick="changeReportMonth(-1)" aria-label="Mês anterior">‹</button><button type="button" class="date-display" id="reportMonthDisplay" onclick="openReportMonthPicker()">Setembro 2026 <span class="calendar-icon">▣</span></button><button type="button" class="date-arrow" onclick="changeReportMonth(1)" aria-label="Próximo mês">›</button></div><div id="reportYearPicker" class="day-date-picker report-day-picker" style="display:none"><button type="button" class="date-arrow" onclick="changeReportYear(-1)" aria-label="Ano anterior">‹</button><button type="button" class="date-display" id="reportYearDisplay" onclick="openReportYearPicker()">2026 <span class="calendar-icon">▣</span></button><button type="button" class="date-arrow" onclick="changeReportYear(1)" aria-label="Próximo ano">›</button></div><div id="reportPeriod" style="display:none"></div><div id="reportDayHint" class="date-swipe-hint" style="display:none">Deslize para mudar · toque no calendário para escolher</div></div></div><div class="grid" style="margin-top:12px"><div class="card"><div class="label">ENTRADAS</div><div class="value green" id="rpEntry">R$ 0,00</div></div><div class="card"><div class="label">SAÍDAS</div><div class="value red" id="rpExp">R$ 0,00</div></div><div class="card"><div class="label">LÍQUIDO</div><div class="value yellow" id="rpNet">R$ 0,00</div></div><div class="card"><div class="label">KM</div><div class="value" id="rpKm">0 km</div></div><div class="mini report-per-km" style="display:none"><span>💰 VALOR DO DIA RODADO</span><b id="rpPerKm">R$ 0,00 / km</b></div></div><div class="form" style="margin-top:12px"><div class="period-title">📋 Todos os lançamentos do período</div><div id="periodLaunches"></div></div></section>
+<section id="backup" class="screen">
+<div class="section-title">💾 Backup e transferência</div>
+<div class="form">
+<p>Use esta tela para levar os lançamentos para outro celular. No celular antigo, exporte o backup e envie o arquivo para o novo aparelho. No novo, instale o Diego Taxi e restaure esse arquivo.</p>
+<button type="button" class="btn primary full" onclick="exportBackup()">💾 Exportar backup</button>
+<div style="height:12px"></div>
+<label for="backupFile" class="muted" style="display:block;font-size:13px;margin-bottom:8px">No celular novo, selecione o arquivo de backup recebido.</label>
+<input id="backupFile" type="file" accept=".json,application/json" style="width:100%;padding:12px;border-radius:12px;border:1px solid #31556a;background:#081a28;color:white">
+<button type="button" class="btn full" style="margin-top:10px" onclick="restoreBackup()">📥 Restaurar backup</button>
+<div class="note">A restauração substitui os dados existentes neste aparelho pelos dados do arquivo selecionado. Se já houver lançamentos importantes neste celular, exporte um backup deles antes de restaurar.</div>
+</div>
+<button type="button" class="btn full" style="margin-top:12px" onclick="show('home')">⌂ Início</button>
+</section>
 </main>
 <div class="toast" id="toast"></div>
 <div class="modal" id="reportWeekPickerModal"><div class="modal-box date-picker-box"><div class="date-picker-head"><button class="cal-nav" onclick="changeReportWeekPickerMonth(-1)">‹</button><h3 id="reportWeekPickerTitle">Setembro 2026</h3><button class="cal-nav" onclick="changeReportWeekPickerMonth(1)">›</button></div><div class="cal-head mini-cal-head"><div>DOM</div><div>SEG</div><div>TER</div><div>QUA</div><div>QUI</div><div>SEX</div><div>SÁB</div></div><div id="reportWeekMiniCalendar" class="mini-calendar"></div><button class="btn full" style="margin-top:12px" onclick="closeReportWeekPicker()">Fechar</button></div></div><div class="modal" id="reportMonthPickerModal"><div class="modal-box date-picker-box"><div class="date-picker-head"><button class="cal-nav" onclick="changeReportMonthPickerYear(-1)">‹</button><h3 id="reportMonthPickerTitle">2026</h3><button class="cal-nav" onclick="changeReportMonthPickerYear(1)">›</button></div><div id="reportMonthGrid" class="month-grid"></div><button class="btn full" style="margin-top:12px" onclick="closeReportMonthPicker()">Fechar</button></div></div><div class="modal" id="reportYearPickerModal"><div class="modal-box date-picker-box"><div class="date-picker-head"><button class="cal-nav" onclick="changeReportYearPickerPage(-1)">‹</button><h3 id="reportYearPickerTitle">Anos</h3><button class="cal-nav" onclick="changeReportYearPickerPage(1)">›</button></div><div id="reportYearGrid" class="year-grid"></div><button class="btn full" style="margin-top:12px" onclick="closeReportYearPicker()">Fechar</button></div></div><div class="modal" id="reportDatePickerModal"><div class="modal-box date-picker-box"><div class="date-picker-head"><button class="cal-nav" onclick="changeReportMiniMonth(-1)" aria-label="Mês anterior">‹</button><h3 id="reportMiniMonthTitle">Setembro 2026</h3><button class="cal-nav" onclick="changeReportMiniMonth(1)" aria-label="Próximo mês">›</button></div><div class="cal-head mini-cal-head"><div>DOM</div><div>SEG</div><div>TER</div><div>QUA</div><div>QUI</div><div>SEX</div><div>SÁB</div></div><div id="reportMiniCalendar" class="mini-calendar"></div><button class="btn full" style="margin-top:12px" onclick="closeReportDatePicker()">Fechar</button></div></div><div class="modal" id="datePickerModal"><div class="modal-box date-picker-box"><div class="date-picker-head"><button class="cal-nav" onclick="changeMiniMonth(-1)" aria-label="Mês anterior">‹</button><h3 id="miniMonthTitle">Setembro 2026</h3><button class="cal-nav" onclick="changeMiniMonth(1)" aria-label="Próximo mês">›</button></div><div class="cal-head mini-cal-head"><div>DOM</div><div>SEG</div><div>TER</div><div>QUA</div><div>QUI</div><div>SEX</div><div>SÁB</div></div><div id="miniCalendar" class="mini-calendar"></div><button class="btn full" style="margin-top:12px" onclick="closeDatePicker()">Fechar</button></div></div>
@@ -260,5 +274,40 @@ window.addEventListener("load", function () {
     navigator.serviceWorker.register("./sw.js", {scope:"./"}).catch(function(){});
   }
 });
+
+function exportBackup(){
+  try{
+    const payload={app:'Diego Taxi',backupVersion:1,exportedAt:new Date().toISOString(),data:data};
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');
+    const d=isoToday();a.href=url;a.download='diego-taxi-backup-'+d+'.json';
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+    toast('Backup exportado. Encontre o arquivo em Downloads.');
+  }catch(e){console.error(e);toast('Não foi possível exportar o backup.');}
+}
+function restoreBackup(){
+  const input=document.getElementById('backupFile');const file=input&&input.files&&input.files[0];
+  if(!file){toast('Selecione primeiro o arquivo de backup.');return;}
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const parsed=JSON.parse(String(reader.result||''));
+      const incoming=parsed&&parsed.data?parsed.data:parsed;
+      if(!incoming||typeof incoming!=='object'||!Array.isArray(incoming.days)||!Array.isArray(incoming.fuel)||!Array.isArray(incoming.maint)){
+        toast('Arquivo inválido ou não é um backup do Diego Taxi.');return;
+      }
+      if(!Array.isArray(incoming.cal))incoming.cal=[];
+      if(!Array.isArray(incoming.extra))incoming.extra=[];
+      const ok=window.confirm('Atenção: restaurar substituirá todos os dados atualmente neste celular pelos dados do backup. Para continuar, confirme.');
+      if(!ok)return;
+      data=incoming;localStorage.setItem(KEY,JSON.stringify(data));
+      editing={days:null,fuel:null,maint:null};pendingDelete=null;
+      refresh();input.value='';show('home');
+      toast('Backup restaurado com sucesso! Confira os lançamentos.');
+    }catch(e){console.error(e);toast('Não foi possível ler o arquivo de backup.');}
+  };
+  reader.onerror=()=>toast('Erro ao abrir o arquivo de backup.');
+  reader.readAsText(file);
+}
 </script>
 </body></html>
